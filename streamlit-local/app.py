@@ -7,9 +7,10 @@ from llama_index.llms import Ollama
 
 llm = Ollama(model="zephyr")
 system_prompt = \
-    "You are an expert on Linus Torvalds and your job is to answer questions about him." \
+    "You are an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
     "Assume that all questions are related to Linus Torvalds or Linux." \
-    "Keep your answers brief and based on facts – do not hallucinate facts."
+    "Keep your answers to a few sentences and based on context – do not hallucinate facts." \
+    "Always try to cite your source document."
 
 st.header("Everything you want to know about Linux or Linus")
 
@@ -18,20 +19,19 @@ if "messages" not in st.session_state.keys(): # Initialize the chat message hist
         {"role": "assistant", "content": "Ask me a question about Linus or Linux"}
     ]
 
-
 @st.cache_resource(show_spinner=False)
 def load_data():
     with st.spinner(text="Loading and indexing the document data – might take 1-2 minutes."):
         reader = SimpleDirectoryReader(input_dir="./docs", recursive=True)
         docs = reader.load_data()
-        service_context = ServiceContext.from_defaults(llm=Ollama(model="zephyr"), embed_model="local", system_prompt=system_prompt)
+        service_context = ServiceContext.from_defaults(llm=Ollama(model="zephyr"), embed_model="local")
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
 index = load_data()
 
 chat_engine = index.as_chat_engine(
-    chat_mode="react", verbose=True
+    chat_mode="context", verbose=True, system_prompt=system_prompt
 )
 
 if prompt := st.chat_input("Ask me a question about Linus or Linux"): 
