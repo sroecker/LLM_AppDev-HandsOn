@@ -7,12 +7,13 @@ from llama_index.llms import Ollama
 
 llm = Ollama(model="zephyr")
 system_prompt = \
-    "You are an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
+    "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
     "Assume that all questions are related to Linus Torvalds or Linux." \
     "Keep your answers to a few sentences and based on context – do not hallucinate facts." \
     "Always try to cite your source document."
 
-st.header("Everything you want to know about Linux or Linus")
+st.title("Linuxbot 🐧🤖")
+st.subheader("Everything you want to know about Linux or Linus")
 
 if "messages" not in st.session_state.keys(): # Initialize the chat message history
     st.session_state.messages = [
