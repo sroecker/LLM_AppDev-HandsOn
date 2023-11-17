@@ -5,7 +5,7 @@ from llama_index import SimpleDirectoryReader
 from llama_index.llms import Ollama
 
 # connect to ollama service running on OpenShift
-llm = Ollama(model="zephyr", base_url="http://ollama:11343")
+my_llm = Ollama(model="zephyr", base_url="http://ollama:11343")
 
 system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
@@ -22,15 +22,15 @@ if "messages" not in st.session_state.keys(): # Initialize the chat message hist
     ]
 
 @st.cache_resource(show_spinner=False)
-def load_data():
+def load_data(_llm):
     with st.spinner(text="Loading and indexing the document data – might take 1-2 minutes."):
         reader = SimpleDirectoryReader(input_dir="./docs", recursive=True)
         docs = reader.load_data()
-        service_context = ServiceContext.from_defaults(llm=Ollama(model="zephyr"), embed_model="local")
+        service_context = ServiceContext.from_defaults(llm=_llm, embed_model="local")
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
-index = load_data()
+index = load_data(my_llm)
 
 chat_engine = index.as_chat_engine(
     chat_mode="context", verbose=True, system_prompt=system_prompt
