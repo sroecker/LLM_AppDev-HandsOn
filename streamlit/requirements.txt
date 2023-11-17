@@ -1,3 +1,5 @@
 streamlit
-llama-index>=0.9.2
+torch==2.1.0
+llama-index==0.9.2
+transformers==4.35.2
 pypdf
