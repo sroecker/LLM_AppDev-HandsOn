@@ -1,0 +1,64 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linuxbot
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: linuxbot-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: linuxbot-app
+    spec:
+      containers:
+      - args:
+        - streamlit run app.py --server.port 8080
+        env:
+        - name: FOO
+          value: BAR
+        image: quay.io/sroecker/linuxbot-app:latest
+        imagePullPolicy: Always
+        name: linuxbot
+        ports:
+        - containerPort: 8080
+          name: frontend
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: shm
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: shm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 2Gi
+---
+# Service linuxbot-app
+apiVersion: v1
+kind: Service
+metadata:
+  name: linuxbot
+spec:
+  selector:
+    app: linuxbot-app
+  ports:
+    - name: frontend
+      protocol: TCP
+      port: 8080
+      targetPort: frontend
