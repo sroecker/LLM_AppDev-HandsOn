@@ -7,8 +7,10 @@ RUN chown -R 1001:0 ./
 USER 1001
 
 # Install the dependencies
-RUN pip install -U "pip>=22.2.2" && \
+RUN pip install -U "pip>=23.3.1" && \
     pip install -r requirements.txt
 
+EXPOSE 8080
+
 # Run the application
-CMD streamlit run app.py --server.port 8080
+ENTRYPOINT ["streamlit",  "run", "app.py", "--server.port=8080"]
