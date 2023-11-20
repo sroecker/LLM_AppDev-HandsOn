@@ -1,0 +1,172 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "1d207cf1-3161-462d-ad71-1273614ad575",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from llama_index.llms import Ollama"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "d3155800-c85a-4884-9096-1101a40f31af",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "OLLAMA_HOST = 'localhost'\n",
+    "OLLAMA_MODEL = 'zephyr'\n",
+    "OLLAMA_MODEL = 'mistral-openorca'\n",
+    "llm = Ollama(model=OLLAMA_MODEL, base_url=\"http://\"+OLLAMA_HOST+\":11434\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "cd9e6e27-a668-49da-842c-235e2ae9d758",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "article = \"\"\"\n",
+    "Staff at OpenAI have called on the board of the artificial intelligence company to resign after the shock dismissal of former boss Sam Altman.\n",
+    "\n",
+    "In a letter, they question the board's competence, and accuse it of undermining the firm's work.\n",
+    "\n",
+    "They also demand Mr Altman's reinstatement.\n",
+    "\n",
+    "The sacking on Friday of a man who is one of the leading figures in artificial intelligence (AI) shocked the tech world.\n",
+    "\n",
+    "The letter's hundreds of signatories, who include senior staff, say they may themselves resign if their demands are not met.\n",
+    "\n",
+    "They also state that Microsoft has assured them that there are jobs for all OpenAI staff if they want to join the company.\n",
+    "\n",
+    "Lilian Weng, head of safety systems at OpenAI, posted on X - formerly Twitter - that more than 650 of the company's 770 workers had put their names to the letter - a number that staff members said was rapidly climbing.\n",
+    "\n",
+    "\"All the efforts started after 1:30 AM, 500+ within two hours and all of this after 2 crazy days with very little sleep\", she wrote.\n",
+    "\n",
+    "One of the notable people to sign the letter is OpenAI's chief scientist, Ilya Sutskever - despite being a member of the board which now finds itself under fire.\n",
+    "\n",
+    "Writing on X, he said that he had made a mistake.\n",
+    "\n",
+    "\"Now I deeply regret my participation in the board's actions. I never intended to harm OpenAI. I love everything we've built together and I will do everything I can to reunite the company\", he posted.\n",
+    "\n",
+    "In a fast moving and chaotic series of events over the weekend it seemed briefly that Mr Altman might get his job back, only for it to be announced he was joining Microsoft, which has invested billions in OpenAI in exchange for a 49% stake.\n",
+    "\n",
+    "Microsoft chief executive Satya Nadella wrote on X, that Mr Altman would be leading \"a new advanced AI research team\".\n",
+    "\n",
+    "Responding to the post confirming his new job, but before the letter was published, Mr Altman wrote \"the mission continues\".\n",
+    "\n",
+    "He later added: \"We are all going to work together some way or other, and i'm so excited. one team, one mission.\"\n",
+    "\n",
+    "Meanwhile, ex-Twitch CEO Emmett Shear will become OpenAI's new interim boss.\n",
+    "\n",
+    "Writing on X, he called the job a \"once-in-a-lifetime opportunity\".\n",
+    "\n",
+    "But he added the way Mr Altman had been sacked was \"handled very badly\" and \"seriously damaged our trust\".\n",
+    "\n",
+    "Mr Altman, 38, helped launch the firm - best known for creating the popular ChatGPT bot - and has become one of the most influential figures in the fast-growing generative artificial intelligence (AI) space.\n",
+    "\n",
+    "The sacking of such a high profile figure surprised industry watchers, and angered many in the company he'd led - culminating in them demanding the board members resign.\n",
+    "\"\"\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "3f14a2fb-c55d-4c39-a13f-ffb4943ede00",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "resp = llm.stream_complete(\"Please summarize the following text to three sentences:\" + article)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "22126cac-56d8-4173-b379-162e6266a785",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " OpenAI staff have called for the board to resign after the dismissal of Sam Altman. They demand Mr. Altman's reinstatement and state that more than 650 of the company's workers support this, with many potentially resigning if their demands are not met. Microsoft has assured them there are jobs available at the company. OpenAI's chief scientist, Ilya Sutskever, who is a member of the board, expressed regret for his participation in the board's actions and said he will do everything to reunite the company. Sam Altman later confirmed his new role leading advanced AI research at Microsoft."
+     ]
+    }
+   ],
+   "source": [
+    "for r in resp:\n",
+    "    print(r.delta, end=\"\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "503c583d-df6d-43e0-8738-40208f9f55ce",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "resp = llm.stream_complete(\"Please extract the key natural persons, their role and intention mentionend in this article: \" + article)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "c2f723ca-60e0-4bc8-aa92-dd50fb458bf7",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " Key natural persons: Sam Altman, OpenAI staff (including senior staff), Ilya Sutskever, Lilian Weng, Microsoft Chief Executive Satya Nadella, and Emmett Shear.\n",
+      "\n",
+      "Their role: Founder and former boss of OpenAI (Sam Altman), staff members at OpenAI, member of the board and chief scientist of OpenAI (Ilya Sutskever), head of safety systems at OpenAI (Lilian Weng), Microsoft's CEO, and interim CEO of OpenAI.\n",
+      "\n",
+      "Their intention: The dismissed staff demand the resignation of the board and Sam Altman's reinstatement; Ilya Sutskever regrets his participation in the board's actions and wants to reunite the company; Microsoft assures that there are jobs for all OpenAI staff members if they want to join."
+     ]
+    }
+   ],
+   "source": [
+    "for r in resp:\n",
+    "    print(r.delta, end=\"\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
