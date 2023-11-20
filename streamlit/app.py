@@ -5,7 +5,7 @@ from llama_index import SimpleDirectoryReader
 from llama_index.llms import Ollama
 
 # connect to ollama service running on OpenShift
-my_llm = Ollama(model="zephyr", base_url="http://ollama:11343")
+my_llm = Ollama(model="zephyr", base_url="http://ollama:11434")
 
 system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
