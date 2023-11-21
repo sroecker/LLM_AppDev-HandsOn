@@ -1,11 +1,14 @@
 # https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/
+import os
 import streamlit as st
 from llama_index import VectorStoreIndex, ServiceContext, Document
 from llama_index import SimpleDirectoryReader
 from llama_index.llms import Ollama
 
+OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'localhost')
+print(f"Connecting to ollama server {OLLAMA_HOST}")
 # connect to ollama service running on OpenShift
-my_llm = Ollama(model="zephyr", base_url="http://ollama:11434")
+my_llm = Ollama(model="zephyr", base_url="http://"+OLLAMA_HOST+":11434")
 
 system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
