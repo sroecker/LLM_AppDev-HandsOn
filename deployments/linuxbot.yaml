@@ -25,8 +25,8 @@ spec:
       - args:
         - streamlit run app.py --server.port 8080
         env:
-        - name: FOO
-          value: BAR
+        - name: OLLAMA_HOST
+          value: ollama
         image: quay.io/sroecker/linuxbot-app:latest
         imagePullPolicy: Always
         name: linuxbot
