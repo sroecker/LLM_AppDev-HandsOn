@@ -36,7 +36,7 @@ podman build --platform="linux/amd64" -t linuxbot-app .
 Since we create the embeddings locally we need to increase shared memory for Pytorch in order to get it running:
 
 ```
-podmanrun -p 8080:8080 --shm-size=2gb -it linuxbot-app
+podman run -p 8080:8080 --shm-size=2gb -it linuxbot-app
 ```
 
 ## OpenShift
