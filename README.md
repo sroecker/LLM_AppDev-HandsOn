@@ -5,7 +5,7 @@ We will use streamlit, llamaindex and a local LLM via Ollama.
 
 # Setup
 
-Please download ollama from [ollama.ai](https://ollama.ai) and start a server with ``ollama serve``. For the local example have a look at the folder `streamlit-local` and install the requirements:
+Please download ollama from [ollama.ai](https://ollama.ai) and start a server with ``ollama serve``. For the local example have a look at the folder `streamlit` and install the requirements:
 
 ```
 pip install -r requirements.txt
@@ -16,7 +16,20 @@ Then start streamlit with:
 streamlit run app.py
 ```
 
-Modify the system prompt and copy different data sources to `docs/` in order to create your own version of the Chatbot.
+Modify the system prompt and copy different data sources to `docs/` in order to create your own version of the chatbot.
+You can set the ollama host via the enviroment variable `OLLAMA_HOST`.
+
+You can download models locally with `ollama pull zephyr` or via API:
+
+```
+curl -X POST http://ollama:11434/api/pull -d '{"name": "zephyr"}'
+```
+
+To test the ollama server you can call the generate API:
+
+```
+curl -X POST http://ollama:11434/api/generate -d '{"model": "zephyr", "prompt": "Why is the sky blue?"}'
+```
 
 # Deployment
 ## Podman
@@ -38,6 +51,7 @@ Since we create the embeddings locally we need to increase shared memory for Pyt
 ```
 podman run -p 8080:8080 --shm-size=2gb -it linuxbot-app
 ```
+NOTE: You need to create a network to access a running ollama container.
 
 ## OpenShift
 
@@ -51,5 +65,5 @@ oc apply -f deployments/streamlit.yaml
 
 # References
 
-- https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/
+- [Build a chatbot with custom data sources, powered by LlamaIndex](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)
 
