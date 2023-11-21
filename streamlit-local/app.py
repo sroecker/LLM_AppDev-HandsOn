@@ -5,7 +5,6 @@ from llama_index import SimpleDirectoryReader
 
 from llama_index.llms import Ollama
 
-llm = Ollama(model="zephyr")
 system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
     "Assume that all questions are related to Linus Torvalds or Linux." \
@@ -47,7 +46,12 @@ for message in st.session_state.messages:
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Querying..."):
-            response = chat_engine.chat(prompt)
-            st.write(response.response)
-            message = {"role": "assistant", "content": response.response}
+            streaming_response = chat_engine.stream_chat(prompt)
+            placeholder = st.empty()
+            full_response = ''
+            for token in streaming_response.response_gen:
+                full_response += token
+                placeholder.markdown(full_response)
+            placeholder.markdown(full_response)
+            message = {"role": "assistant", "content": full_response}
             st.session_state.messages.append(message) # Add response to message history
