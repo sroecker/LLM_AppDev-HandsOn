@@ -1,15 +1,27 @@
+# PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
 # Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: linuxbot
+  name: ollama
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: linuxbot-app
+      app: ollama
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,53 +31,56 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: linuxbot-app
+        app: ollama
     spec:
       containers:
       - args:
-        - streamlit run app.py --server.port 8080
+        - serve
         env:
-        - name: OLLAMA_HOST
-          value: ollama
-        image: quay.io/sroecker/linuxbot-app:latest
+        - name: FOO
+          value: BAR
+        image: docker.io/ollama/ollama:latest
         imagePullPolicy: Always
         resources:
           requests:
             cpu: 2000m
-            memory: 3Gi
+            memory: 6Gi
+            nvidia.com/gpu: 1
           limits:
             cpu: 4000m
             memory: 6Gi
-        name: linuxbot
+            nvidia.com/gpu: 1
+        name: ollama
         ports:
-        - containerPort: 8080
+        - containerPort: 11434
           name: frontend
           protocol: TCP
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /dev/shm
-          name: shm
+        - mountPath: /.ollama
+          name: ollama-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: shm
-        emptyDir:
-          medium: Memory
-          sizeLimit: 2Gi
+      - name: ollama-data
+        persistentVolumeClaim:
+          claimName: ollama-data
 ---
-# Service linuxbot-app
+# Service ollama
 apiVersion: v1
 kind: Service
 metadata:
-  name: linuxbot
+  name: ollama
+  labels:
+    app: ollama
 spec:
+  ClusterIP: None
   selector:
-    app: linuxbot-app
+    app: ollama
   ports:
-    - name: frontend
-      protocol: TCP
-      port: 8080
-      targetPort: frontend
+    - name: api
+      port: 11434
+      targetPort: 11434

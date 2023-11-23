@@ -54,10 +54,16 @@ podman run -p 8080:8080 --shm-size=2gb -it linuxbot-app
 NOTE: You need to create a network to access a running ollama container.
 
 ## OpenShift
+``
+oc new-project my-workshop
+``
 
 ``
 oc apply -f deployments/ollama.yaml
 ``
+
+If you want to enable GPU support you have to have to install the NVIDIA GPU Operator and NFD Operator as described [here](
+https://ai-on-openshift.io/odh-rhods/nvidia-gpus/), then deploy `ollama-gpu.yaml` instead.
 
 ``
 oc apply -f deployments/streamlit.yaml
