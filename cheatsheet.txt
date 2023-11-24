@@ -5,12 +5,20 @@ podman build --platform="linux/amd64" -t linuxbot-app .
 
 # either run ollama natively or in a container
 
+# natively
+ollama serve
+ollama pull zephyr
+streamlit run app.py --server.port 8080
+# or run the streamlit app as container
+podman run --name linuxbot-app -p 8080:8080 --shm-size=2gb -it --rm localhost/linuxbot-app
+
+# container
 podman create network linuxbot
-podman inspect network linxubot
 # dns should be enabled
+podman inspect network linxubot
 
 podman run --net linuxbot --name ollama --rm docker.io/ollama/ollama:latest
-podman run --net linuxbot --name linuxbot-app -p 8080:8080 -it --rm localhost/linuxbot-app
+podman run --net linuxbot --name linuxbot-app -p 8080:8080 --shm-size=2gb -e OLLAMA_HOST=ollama -it --rm localhost/linuxbot-app
 
 # openshift
 oc apply -f deployments/ollama.yaml
