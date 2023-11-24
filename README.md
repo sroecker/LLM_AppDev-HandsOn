@@ -104,7 +104,7 @@ oc apply -f deployments/ollama.yaml
 If you want to enable GPU support you have to have to install the NVIDIA GPU Operator and NFD Operator as described [here](https://ai-on-openshift.io/odh-rhods/nvidia-gpus/), then deploy `ollama-gpu.yaml` instead.
 
 ```
-oc apply -f deployments/linuxbot.yaml
+oc apply -f deployments/ollama-gpu.yaml
 ```
 
 The streamlit application (linuxbot) can deployed as:
