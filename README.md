@@ -1,11 +1,11 @@
 # Introduction
 
-In this workshop we'll learn how to build a simple chatbot that can answer questions based on documents.
-We will use streamlit, llamaindex and a local LLM via Ollama.
+In this workshop we'll learn how to build a simple chatbot that answer questions based on your documents (RAG) and deploy it with [Podman](https://podman.io) or on [OpenShift](https://wwww.openshift.com).
+We will use [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and a local open LLM via [Ollama](https://ollama.ai).
 
 # Setup
 
-Please download ollama from [ollama.ai](https://ollama.ai) and install it.
+Please download Ollama from [ollama.ai](https://ollama.ai) and install it.
 
 You can disable the Ollama service for better debugging:
 
