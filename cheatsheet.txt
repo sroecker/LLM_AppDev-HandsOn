@@ -1,0 +1,30 @@
+# If you build on Mac M1 but want to deploy on amd64
+podman build --platform="linux/amd64" -t linuxbot-app .
+
+# podman
+
+# either run ollama natively or in a container
+
+podman create network linuxbot
+podman inspect network linxubot
+# dns should be enabled
+
+podman run --net linuxbot --name ollama --rm docker.io/ollama/ollama:latest
+podman run --net linuxbot --name linuxbot-app -p 8080:8080 -it --rm localhost/linuxbot-app
+
+# openshift
+oc apply -f deployments/ollama.yaml
+# or with GPU support
+oc apply -f deployments/ollama-gpu.yaml
+
+oc apply -f deployments/linuxbot.yaml
+
+
+# to debug with curl
+oc run mycurl --image=curlimages/curl -it -- sh
+oc attach mycurl -c mycurl -i -t
+oc delete pod mycurl
+
+# download a model and test it
+curl -X POST http://ollama:11434/api/pull -d '{"name": "zephyr"}'
+curl -X POST http://ollama:11434/api/generate -d '{"model": "zephyr", "prompt": "Why is the sky blue?"}'
