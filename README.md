@@ -1,6 +1,6 @@
 # Introduction
 
-In this workshop we'll learn how to build a simple chatbot that answer questions based on your documents (RAG) and deploy it with [Podman](https://podman.io) or on [OpenShift](https://wwww.openshift.com).
+In this workshop we'll learn how to build a simple chatbot that answer questions based on your documents (RAG) and deploy it with [Podman](https://podman.io) or on [OpenShift](https://www.openshift.com).
 We will use [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and a local open LLM via [Ollama](https://ollama.ai).
 
 # Setup
@@ -115,7 +115,7 @@ oc apply -f deployments/linuxbot.yaml
 
 We have published a preconfigured container image on [quay.io/sroecker](https://quay.io/sroecker/linuxbot-app) that is used in this deployment.
 
-In order to debug your application and ollama service you can deploy a `cURL` image like this:
+In order to debug your application and ollama service you can deploy a curl image like this:
 
 ```
 oc run mycurl --image=curlimages/curl -it -- sh
