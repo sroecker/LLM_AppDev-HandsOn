@@ -82,12 +82,12 @@ We've collected a few ideas and tried to cluster them according to their require
 **Intermediate:**
 
 - Make complex texts and concepts, e.g legislature, accessible for everyone. See [this](https://twitter.com/simonw/status/1728941844585955462) example.
-- Replace Ollama with a LiteLLM proxy
+- Replace Ollama with a [LiteLLM](https://github.com/BerriAI/litellm) proxy
 - Port the streamlit app to [Solara](https://github.com/widgetti/solara)
 
 **Expert:**
 
-- Create a **multimodal bot that can understand images ([LLaVA](https://llava-vl.github.io/ or [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA)) and speech** ([Whisper](https://github.com/ggerganov/whisper.cpp))
+- Create a **multimodal bot that can understand images ( [LLaVA](https://llava-vl.github.io/) or [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA) ) and speech** ([Whisper](https://github.com/ggerganov/whisper.cpp))
 - Create a loader for [Kiwix ZIM files](https://wiki.kiwix.org/wiki/Content_in_all_languages) (e.g Wikipedia)
 - Add Ollama embedding REST API support to LlamaIndex
 
