@@ -63,6 +63,8 @@ Since it was released shortly after this example app you should have a look what
 Now that we covered the very basics it's time for learning by doing!
 First we should **modify our example bot and give it some custom data, a different prompt or try out different models**. Some of them can have quite the personality.
 
+Have a look at the included [notebooks](../notebooks/) to see examples for text summary and natural SQL query.
+
 ### Some ideas for experimentation & improvement
 
 We've collected a few ideas and tried to cluster them according to their required skill level:
