@@ -21,6 +21,8 @@ podman run --net linuxbot --name ollama --rm docker.io/ollama/ollama:latest
 podman run --net linuxbot --name linuxbot-app -p 8080:8080 --shm-size=2gb -e OLLAMA_HOST=ollama -it --rm localhost/linuxbot-app
 
 # openshift
+oc new-project darmstadt-workshop
+
 oc apply -f deployments/ollama.yaml
 # or with GPU support
 oc apply -f deployments/ollama-gpu.yaml
