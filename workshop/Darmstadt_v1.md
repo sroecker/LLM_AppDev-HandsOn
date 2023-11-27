@@ -40,12 +40,10 @@ Instead let's have a look at our Linuxbot example streamlit app and go through i
 - Strange creatures and where to find them
 - Quantization? How to be GPU poor and local Llama rich
 - Prompting (System prompt vs user prompt)
-
-
-
 - Tokenization, see [OpenAI tokenizer](https://platform.openai.com/tokenizer)
 
-
+The basic architecture of our RAG bot will look like this:
+![Basic architecture of a RAG bot](basic_rag.png)
 
 See [LlamaIndex High-level Concepts](https://gpt-index.readthedocs.io/en/stable/getting_started/concepts.html) for what's needed to query our documents:
 
