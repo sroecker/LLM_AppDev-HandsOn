@@ -1,21 +1,26 @@
-# Introduction
+# LLM App Dev Workshop
 
-<img src="localllamas.png" width="256">
+## Introduction
 
-In this workshop we'll learn how to build a simple chatbot that answer questions based on your documents (RAG) and deploy it with [Podman](https://podman.io) or on [OpenShift](https://www.openshift.com).
-We will use [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and a local open LLM via [Ollama](https://ollama.ai).
+<img src="localllamas.png" alt="a bunch of happy local llamas" width="256">
 
-# Setup
+This repository demonstrates how to build a simple LLM-based chatbot that can answer questions based on your documents (retrieval augmented generation - RAG) and how to deploy it using [Podman](https://podman.io) or on the [OpenShift](https://www.openshift.com) Container Platform (k8s).
 
-Please download Ollama from [ollama.ai](https://ollama.ai) and install it.
+The corresponding [workshop](workshop/Darmstadt_v1.md) - first run at [Red Hat Developers Hands-On Day 2023](https://events.redhat.com/profile/form/index.cfm?PKformID=0x900962abcd&sc_cid=7013a000003SlFvAAK) in Darmstadt, Germany - teaches participants the basic concepts of LLMs & RAG, and how to adapt this example implementation to their own specific purpose GPT.
 
-You can disable the Ollama service for better debugging:
+The software stack only uses open source tools [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and local open LLMs via [Ollama](https://ollama.ai). Real open AI for the GPU poor.
+## Setup
+
+For the local setup a Mac M1 with 16GB unified memory and above are recommended. First download Ollama from [ollama.ai](https://ollama.ai) and install it.
+
+On Linux you can disable the Ollama service for better debugging:
 
 ```
 sudo systemctl disable ollama
 sudo systemctl stop ollama
 ```
 
+and then manually run `ollama serve`.
 
 For the local example have a look at the folder `streamlit` and install the requirements:
 
@@ -46,10 +51,10 @@ curl -X POST http://ollama:11434/api/generate -d '{"model": "zephyr", "prompt": 
 
 All of these commands are also documented in our [cheat sheet](cheatsheet.txt).
 
-# Deployment
+## Deployment
 
 
-## Podman
+### Podman
 
 Build the container based on [UBI9 Python 3.11](https://catalog.redhat.com/software/containers/ubi9/python-311/63f764b03f0b02a2e2d63fff?architecture=amd64&image=654d1ee47c3bfba06c9c59ea):
 
@@ -92,9 +97,9 @@ podman run --net linuxbot --name linuxbot-app -p 8080:8080 --shm-size=2gb -e OLL
 
 You can set the Ollama server via the environment variable `OLLAMA_HOST`, the default is `localhost`.
 
-NOTE: It would be much better to generate the embeddings with the ollama service, this is not yet supported in llamaindex though.
+NOTE: It would be much better to generate the embeddings with the ollama service, this is not yet supported in LlamaIndex though.
 
-## OpenShift
+### OpenShift
 
 Create a new project (namespace) for your workshop and deploy the ollama service in it:
 
@@ -103,7 +108,7 @@ oc new-project my-workshop
 oc apply -f deployments/ollama.yaml
 ```
 
-If you want to enable GPU support you have to have to install the NVIDIA GPU Operator and NFD Operator as described [here](https://ai-on-openshift.io/odh-rhods/nvidia-gpus/), then deploy `ollama-gpu.yaml` instead.
+If you want to enable GPU support you have to have to install the NVIDIA GPU Operator and Node Feature Discovery (NFD) Operator as described on the [AI on OpenShift](https://ai-on-openshift.io/odh-rhods/nvidia-gpus/) page, then deploy `ollama-gpu.yaml` instead.
 
 ```
 oc apply -f deployments/ollama-gpu.yaml
@@ -125,7 +130,7 @@ oc attach mycurl -c mycurl -i -t
 oc delete pod mycurl
 ```
 
-# References
+## References
 
 - [Build a chatbot with custom data sources, powered by LlamaIndex](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)
 - [SQL Query Engine with LlamaIndex + DuckDB](https://gpt-index.readthedocs.io/en/latest/examples/index_structs/struct_indices/duckdb_sql_query.html)
