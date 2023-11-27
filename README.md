@@ -1,6 +1,6 @@
 # Introduction
 
-![Happy local Llamas](localllamas.png){width=320 height=240}
+<img src="localllamas.png" width="256">
 
 In this workshop we'll learn how to build a simple chatbot that answer questions based on your documents (RAG) and deploy it with [Podman](https://podman.io) or on [OpenShift](https://www.openshift.com).
 We will use [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and a local open LLM via [Ollama](https://ollama.ai).
