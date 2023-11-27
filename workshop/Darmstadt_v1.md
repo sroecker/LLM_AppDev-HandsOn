@@ -30,7 +30,7 @@ For local experimentation you should have a Python 3.11 virtual env set up alrea
 
 By now you should be familiar with commercial offerings like ChatGPT, Bing, Bard or Claude. If not, don't worry ;)
 
-We're not going to cover GPT architecture today, remember it's going to be hands-on. If you're interested in theory we've got you covered in the "Further readings" section. 
+We're not going to cover GPT architecture today, remember it's going to be hands-on. If you're interested in theory we've got you covered in the [Further Readings](#-further-readings) section below. 
 
 Instead let's have a look at our Linuxbot example streamlit app and go through its functionality step by step:
 
@@ -65,7 +65,7 @@ First we should **modify our example bot and give it some custom data, a differe
 
 ### Some ideas for experimentation & improvement
 
-We've collected a few ideas and tried to cluster them according to their required skill level.
+We've collected a few ideas and tried to cluster them according to their required skill level:
 
 **Beginners**:
 
@@ -89,6 +89,7 @@ We've collected a few ideas and tried to cluster them according to their require
 - Create a loader for [Kiwix ZIM files](https://wiki.kiwix.org/wiki/Content_in_all_languages) (e.g Wikipedia)
 - Add Ollama embedding REST API support to LlamaIndex
 
+It's best if you find some other people interested in the same idea and change the table setup accordingly. The instructors will go from team to team. First to setup the infrastructure and then to help you implement your bot. Don't forget to ask your favorite (local) LlaMA.
 
 ## Further Readings
 
