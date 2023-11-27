@@ -9,6 +9,9 @@ This repository demonstrates how to build a simple LLM-based chatbot that can an
 The corresponding [workshop](workshop/Darmstadt_v1.md) - first run at [Red Hat Developers Hands-On Day 2023](https://events.redhat.com/profile/form/index.cfm?PKformID=0x900962abcd&sc_cid=7013a000003SlFvAAK) in Darmstadt, Germany - teaches participants the basic concepts of LLMs & RAG, and how to adapt this example implementation to their own specific purpose GPT.
 
 The software stack only uses open source tools [streamlit](https://streamlit.io), [LlamaIndex](https://llamaindex.ai) and local open LLMs via [Ollama](https://ollama.ai). Real open AI for the GPU poor.
+
+Everyone is invited to fork this repository, create their own specific purpose chatbot based on their documents, improve the setup or even hold your own workshop.
+
 ## Setup
 
 For the local setup a Mac M1 with 16GB unified memory and above are recommended. First download Ollama from [ollama.ai](https://ollama.ai) and install it.
