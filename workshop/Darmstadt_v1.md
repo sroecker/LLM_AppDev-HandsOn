@@ -39,7 +39,7 @@ Instead let's have a look at our Linuxbot example streamlit app and go through i
 - What is Ollama and llama.cpp?
 - Models - Strange creatures and where to find them
 - Quantization? How to be GPU poor and local Llama rich
-- Prompting (System prompt vs user prompt)
+- Prompting: System prompt vs user prompt
 - Tokenization, see [OpenAI tokenizer](https://platform.openai.com/tokenizer)
 
 The basic architecture of our RAG bot will look like this:
@@ -91,7 +91,7 @@ We've collected a few ideas and tried to cluster them according to their require
 
 - Create a **multimodal bot that can understand images ([LLaVA](https://llava-vl.github.io/) or [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA)) and speech** ([Whisper](https://github.com/ggerganov/whisper.cpp))
 - Create a loader for [Kiwix ZIM files](https://wiki.kiwix.org/wiki/Content_in_all_languages) (e.g Wikipedia)
-- Add Ollama embedding REST API support to LlamaIndex
+- Add [Ollama embedding REST API](https://github.com/jmorganca/ollama/blob/main/docs/api.md#generate-embeddings) support to LlamaIndex
 
 It's best if you find some other people interested in the same idea and change the table setup accordingly. The instructors will go from team to team. First to setup the infrastructure and then to help you implement your bot. Don't forget to ask your favorite (local) LlaMA.
 
@@ -128,3 +128,4 @@ Treasure troves:
 ](https://simonwillison.net/)
 - Hamel's [blog](https://hamel.dev/) and [notes](https://hamel.dev/notes/)
 - [LLM in Production Conference](https://www.youtube.com/playlist?list=PL3vkEKxWd-us5YvvuvYkjP_QGlgUq3tpA)
+- [LLM Survey - A comprehensive collection of papers and resources related to Large Language Models](https://github.com/RUCAIBox/LLMSurvey)
