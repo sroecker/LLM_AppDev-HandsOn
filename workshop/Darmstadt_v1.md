@@ -23,7 +23,7 @@ We will use a bunch of cool open source software to build our bot:
 - [LlamaIndex](https://www.llamaindex.ai/)
 - [Streamlit](https://streamlit.io/)
 
-For local experimentation you should have a Python 3.11 virtual env set up already. We will also hand out access to an OpenShift cluster with GPUs and Red Hat OpenShift Data Science (RHODS) where you can use a Jupyter notebook and deploy your streamlit app or connect to a hosted Ollama service.
+For local experimentation you should have a Python 3.11 virtual env set up already. We will also hand out access to an OpenShift cluster with GPUs and [Red Hat OpenShift Data Science (RHODS)](https://developers.redhat.com/products/red-hat-openshift-data-science/overview) where you can use a Jupyter notebook and deploy your streamlit app or connect to a hosted Ollama service.
 
 
 ## Basic Concepts
@@ -37,7 +37,7 @@ Instead let's have a look at our Linuxbot example streamlit app and go through i
 - Streamlit and how to easily build interactive apps
 - Connecting to Ollama
 - What is Ollama and llama.cpp?
-- Strange creatures and where to find them
+- Models - Strange creatures and where to find them
 - Quantization? How to be GPU poor and local Llama rich
 - Prompting (System prompt vs user prompt)
 - Tokenization, see [OpenAI tokenizer](https://platform.openai.com/tokenizer)
@@ -47,7 +47,7 @@ The basic architecture of our RAG bot will look like this:
 
 See [LlamaIndex High-level Concepts](https://gpt-index.readthedocs.io/en/stable/getting_started/concepts.html) for what's needed to query our documents:
 
-- Embeddings & Vector Store
+- Embeddings & Vector Store: see this nice interactive Solara demo of [embeddings with retrieval](https://huggingface.co/spaces/alonsosilva/embeddings)
 - Context
 - Retrieval augmented generation (RAG)
 
@@ -56,7 +56,9 @@ Coincidentally few days ago LlamaIndex released RAGs, exactly what we are going 
 
 Since it was released shortly after this example app you should have a look what can improved here. One thing not implemented yet in RAGs are local models. 🦙
 
+A very good introduction to RAG can be found in [RAG 101 for Enterprise](https://gradient.ai/blog/rag-101-for-enterprise).
 
+![RAG 101](rag101_for_enterprise.png)
 
 ## It's time to build
 
@@ -87,7 +89,7 @@ We've collected a few ideas and tried to cluster them according to their require
 
 **Expert:**
 
-- Create a **multimodal bot that can understand images ( [LLaVA](https://llava-vl.github.io/) or [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA) ) and speech** ([Whisper](https://github.com/ggerganov/whisper.cpp))
+- Create a **multimodal bot that can understand images ([LLaVA](https://llava-vl.github.io/) or [BakLLaVA](https://github.com/SkunkworksAI/BakLLaVA)) and speech** ([Whisper](https://github.com/ggerganov/whisper.cpp))
 - Create a loader for [Kiwix ZIM files](https://wiki.kiwix.org/wiki/Content_in_all_languages) (e.g Wikipedia)
 - Add Ollama embedding REST API support to LlamaIndex
 
@@ -97,7 +99,8 @@ It's best if you find some other people interested in the same idea and change t
 
 ### General Introductions
 
-- [The busy person's intro to LLMs](https://www.youtube.com/watch?v=zjkBMFhNj_g)
+- [Andrej Karpathy - The busy person's intro to LLMs](https://www.youtube.com/watch?v=zjkBMFhNj_g) ([slides](https://drive.google.com/file/d/1pxx_ZI7O-Nwl7ZLNk5hI3WzAsTLwvNU7/view?pli=1))
+- [Matthias Plappert - Understanding LLMs An Introduction to Modern Language Modeling](https://matthiasplappert.com/talks/2023-10-17-understanding-llms.pdf)
 - [The Illustrated Transfomer](https://jalammar.github.io/illustrated-transformer/)
 - [Jeremy Howard - A Hacker's Guide to Language Models](https://github.com/fastai/lm-hackers)
 
@@ -110,6 +113,13 @@ It's best if you find some other people interested in the same idea and change t
 - [Cohere - Word and Sentence Embeddings](https://txt.cohere.com/sentence-word-embeddings/)
 - [Weaviate - A Gentle Introduction to Vector Databases](https://weaviate.io/blog/what-is-a-vector-database)
 - [Weaviate - Vector Embeddings Explained](https://weaviate.io/blog/vector-embeddings-explained)
+
+### RAG
+
+- [RAG 101 for Enterprise](https://gradient.ai/blog/rag-101-for-enterprise)
+- [Prompt Engineering Techniques - RAG (with history)](https://www.promptingguide.ai/techniques/rag)
+- [WandB - A Gentle Introduction to Retrieval Augmented Generation (RAG)](https://wandb.ai/cosmo3769/RAG/reports/A-Gentle-Introduction-to-Retrieval-Augmented-Generation-RAG---Vmlldzo1MjM4Mjk1)
+- [Arize - Introduction to retrieval augmented generation](https://arize.com/blog-course/introduction-to-retrieval-augmented-generation/)
 
 Treasure troves:
 
