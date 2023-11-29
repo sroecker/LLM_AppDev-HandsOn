@@ -13,9 +13,9 @@ streamlit run app.py --server.port 8080
 podman run --name linuxbot-app -p 8080:8080 --shm-size=2gb -it --rm localhost/linuxbot-app
 
 # container
-podman create network linuxbot
+podman network create linuxbot
 # dns should be enabled
-podman inspect network linxubot
+podman network inspect linxubot
 
 podman run --net linuxbot --name ollama --rm docker.io/ollama/ollama:latest
 podman run --net linuxbot --name linuxbot-app -p 8080:8080 --shm-size=2gb -e OLLAMA_HOST=ollama -it --rm localhost/linuxbot-app
