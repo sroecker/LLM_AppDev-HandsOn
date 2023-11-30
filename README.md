@@ -79,7 +79,7 @@ podman network create linuxbot
 Check if DNS is enabled (it's not on the default net):
 
 ```
-podman inspect network linuxbot
+podman network inspect linuxbot
 ```
 
 Now you can either start Ollama locally with `ollama serve` or start a Ollama container with
