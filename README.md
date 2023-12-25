@@ -36,6 +36,8 @@ Then start streamlit with:
 streamlit run app.py
 ```
 
+<img src="linuxbot.gif" alt="The streamlit interface with the example linxubot programming" width="256">
+
 Modify the system prompt and copy different data sources to `docs/` in order to create your own version of the chatbot.
 You can set the ollama host via the enviroment variable `OLLAMA_HOST`.
 
