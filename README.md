@@ -113,7 +113,7 @@ oc new-project my-workshop
 oc apply -f deployments/ollama.yaml
 ```
 
-If you want to enable GPU support you have to have to install the NVIDIA GPU Operator and Node Feature Discovery (NFD) Operator as described on the [AI on OpenShift](https://ai-on-openshift.io/odh-rhods/nvidia-gpus/) page, then deploy `ollama-gpu.yaml` instead.
+If you want to enable GPU support you have to have to install and instantiate the NVIDIA GPU Operator and Node Feature Discovery (NFD) Operator as described on the [AI on OpenShift](https://ai-on-openshift.io/odh-rhoai/nvidia-gpus/) page, then deploy `ollama-gpu.yaml` instead.
 
 ```
 oc apply -f deployments/ollama-gpu.yaml
