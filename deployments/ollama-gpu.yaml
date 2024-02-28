@@ -44,11 +44,11 @@ spec:
         resources:
           requests:
             cpu: 2000m
-            memory: 6Gi
+            memory: 9Gi
             nvidia.com/gpu: 1
           limits:
             cpu: 4000m
-            memory: 6Gi
+            memory: 9Gi
             nvidia.com/gpu: 1
         name: ollama
         ports:
