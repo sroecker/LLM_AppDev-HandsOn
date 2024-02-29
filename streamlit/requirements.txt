@@ -1,5 +1,7 @@
-streamlit==1.27.2
-torch==2.1.0
-llama-index==0.9.2
-transformers==4.35.2
+streamlit==1.31.0
+torch==2.2.1
+llama-index==0.10.14
+llama-index-llms-ollama==0.1.2
+llama-index-embeddings-huggingface==0.1.4
+transformers==4.38.1
 pypdf

@@ -23,10 +23,17 @@ sudo systemctl disable ollama
 sudo systemctl stop ollama
 ```
 
-and then manually run `ollama serve`.
+and then manually run `ollama run zephyr`.
 
-For the local example have a look at the folder `streamlit` and install the requirements:
+For the local example have a look at the folder `streamlit` and install the requirements.
 
+Create a virtual environment first:
+```
+python -m venv venv
+source venv/bin/activate
+```
+
+Install the requirements:
 ```
 pip install -r requirements.txt
 ```
