@@ -1,12 +1,14 @@
 # https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/
 import os
 import streamlit as st
-from llama_index import VectorStoreIndex, ServiceContext, Document
-from llama_index import SimpleDirectoryReader
-from llama_index.llms import Ollama
+
+from llama_index.core import ServiceContext, Document, SimpleDirectoryReader, VectorStoreIndex, Settings
+from llama_index.llms.ollama import Ollama
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'localhost')
 print(f"Connecting to ollama server {OLLAMA_HOST}")
+
 # connect to ollama service running on OpenShift
 my_llm = Ollama(model="zephyr", base_url="http://"+OLLAMA_HOST+":11434")
 
@@ -29,9 +31,15 @@ def load_data(_llm):
     with st.spinner(text="Loading and indexing the document data – might take 1-2 minutes."):
         reader = SimpleDirectoryReader(input_dir="./docs", recursive=True)
         docs = reader.load_data()
-        service_context = ServiceContext.from_defaults(llm=_llm, embed_model="local")
-        index = VectorStoreIndex.from_documents(docs, service_context=service_context)
+        
+        # ServiceContext is deprected ...
+        # Also see https://docs.llamaindex.ai/en/stable/examples/embeddings/huggingface.html
+        Settings.llm = my_llm
+        Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+        index = VectorStoreIndex.from_documents(docs)
+
         return index
+
 
 index = load_data(my_llm)
 
