@@ -23,7 +23,7 @@ sudo systemctl disable ollama
 sudo systemctl stop ollama
 ```
 
-and then manually run `ollama run zephyr`.
+and then manually run `ollama serve`.
 
 For the local example have a look at the folder `streamlit` and install the requirements.
 
