@@ -43,8 +43,6 @@ Then start streamlit with:
 streamlit run app.py
 ```
 
-![](linuxbot.gif)
-
 Modify the system prompt and copy different data sources to `docs/` in order to create your own version of the chatbot.
 You can set the ollama host via the enviroment variable `OLLAMA_HOST`.
 
@@ -62,6 +60,8 @@ curl -X POST http://ollama:11434/api/generate -d '{"model": "zephyr", "prompt": 
 ```
 
 All of these commands are also documented in our [cheat sheet](cheatsheet.txt).
+
+![](linuxbot.gif)
 
 ## Deployment
 
