@@ -100,6 +100,17 @@ podman run --net linuxbot --name ollama -p 11434:11434 --rm docker.io/ollama/oll
 Note: We just forward the port so we can curl it more easily locally as well.
 
 This ollama service won't have GPU support enabled and much slower compared to running it locally on a Mac M1 for example.
+In order to run this container with NVIDIA GPU support we recommend to use the [NVIDIA Container Toolkit with Container Device Interface (CDI)](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html). Follow the instructions from NVIDIA then run podman with:
+
+```
+podman run --rm --net linuxbot --name ollama --device nvidia.com/gpu=all --security-opt=label=disable ollama
+```
+
+In order to test if your graphics card is recognized you can test it using a base image that contains `nvidia-smi`, e.g:
+
+```
+podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L
+```
 
 Since we create the embeddings locally in the streamlit app we need to increase shared memory for Pytorch in order to get it running:
 
