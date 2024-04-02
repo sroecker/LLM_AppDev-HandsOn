@@ -20,6 +20,14 @@ podman network inspect linxubot
 podman run --net linuxbot --name ollama --rm docker.io/ollama/ollama:latest
 podman run --net linuxbot --name linuxbot-app -p 8080:8080 --shm-size=2gb -e OLLAMA_HOST=ollama -it --rm localhost/linuxbot-app
 
+# NVIDIA GPU support
+# generate the CDI spec accorting to
+# https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html
+# check that your GPU is detected
+podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L
+# then run ollama with GPU support
+podman run --rm --net linuxbot --name ollama --device nvidia.com/gpu=all --security-opt=label=disable ollama
+
 # openshift
 oc new-project darmstadt-workshop
 
