@@ -4,6 +4,9 @@
 
 <img src="localllamas.png" alt="a bunch of happy local llamas" width="256">
 
+**2024-07-03: Streamlit app changes:**
+The chatbot app code now uses Ollama embeddings and has a configurable system prompt.
+
 This repository demonstrates how to build a simple LLM-based chatbot that can answer questions based on your documents (retrieval augmented generation - RAG) and how to deploy it using [Podman](https://podman.io) or on the [OpenShift](https://www.openshift.com) Container Platform (k8s).
 
 The corresponding [workshop](workshop/Darmstadt_v1.md) - first run at [Red Hat Developers Hands-On Day 2023](https://events.redhat.com/profile/form/index.cfm?PKformID=0x900962abcd&sc_cid=7013a000003SlFvAAK) in Darmstadt, Germany - teaches participants the basic concepts of LLMs & RAG, and how to adapt this example implementation to their own specific purpose GPT.
