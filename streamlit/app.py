@@ -4,13 +4,19 @@ import streamlit as st
 
 from llama_index.core import ServiceContext, Document, SimpleDirectoryReader, VectorStoreIndex, Settings
 from llama_index.llms.ollama import Ollama
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.embeddings.ollama import OllamaEmbedding
+
 
 OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'localhost')
 print(f"Connecting to ollama server {OLLAMA_HOST}")
 
 # connect to ollama service running on OpenShift
-my_llm = Ollama(model="zephyr", base_url="http://"+OLLAMA_HOST+":11434")
+ollama_llm = Ollama(model="gemma2", base_url="http://"+OLLAMA_HOST+":11434")
+ollama_embedding = OllamaEmbedding(
+    model_name="mxbai-embed-large",
+    base_url="http://localhost:11434",
+    ollama_additional_kwargs={"mirostat": 0},
+)
 
 system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
@@ -32,16 +38,14 @@ def load_data(_llm):
         reader = SimpleDirectoryReader(input_dir="./docs", recursive=True)
         docs = reader.load_data()
         
-        # ServiceContext is deprected ...
-        # Also see https://docs.llamaindex.ai/en/stable/examples/embeddings/huggingface.html
-        Settings.llm = my_llm
-        Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+        Settings.llm = ollama_llm
+        Settings.embed_model = ollama_embedding
         index = VectorStoreIndex.from_documents(docs)
 
         return index
 
 
-index = load_data(my_llm)
+index = load_data(ollama_llm)
 
 chat_engine = index.as_chat_engine(
     chat_mode="context", verbose=True, system_prompt=system_prompt
