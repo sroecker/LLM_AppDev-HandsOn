@@ -10,8 +10,10 @@ from llama_index.embeddings.ollama import OllamaEmbedding
 OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'localhost')
 print(f"Connecting to ollama server {OLLAMA_HOST}")
 
-# connect to ollama service running on OpenShift
-ollama_llm = Ollama(model="gemma2", base_url="http://"+OLLAMA_HOST+":11434")
+# Connect to ollama service running on OpenShift
+my_llm = "mistral:7b-instruct-v0.3-q8_0"
+
+ollama_llm = Ollama(model=my_llm, base_url="http://"+OLLAMA_HOST+":11434")
 ollama_embedding = OllamaEmbedding(
     model_name="mxbai-embed-large",
     base_url="http://localhost:11434",
@@ -22,10 +24,15 @@ system_prompt = \
     "You are Linuxbot, an expert on Linux and Linus Torvalds and your job is to answer questions about these two topics." \
     "Assume that all questions are related to Linus Torvalds or Linux." \
     "Keep your answers to a few sentences and based on context – do not hallucinate facts." \
-    "Always try to cite your source document."
+    "Output markdown and always try to cite your source document."
 
+st.set_page_config(page_title="Linuxbot 🐧🤖", page_icon="🤖", layout="centered", initial_sidebar_state="collapsed", menu_items=None)
 st.title("Linuxbot 🐧🤖")
 st.subheader("Everything you want to know about Linux or Linus")
+
+with st.sidebar.expander("Settings"):
+    system_prompt = st.text_area('System Prompt', value=system_prompt, height=256)
+    #my_llm = st.text_area('Model', value=my_llm)
 
 if "messages" not in st.session_state.keys(): # Initialize the chat message history
     st.session_state.messages = [
